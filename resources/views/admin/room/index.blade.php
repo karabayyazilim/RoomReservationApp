@@ -16,11 +16,11 @@
     <div class="py-12 ">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200 flex flex-col justify-center items-center">
+                <div class="p-6 bg-white border-b border-gray-200 md:flex md:flex-col justify-center items-center">
                     <div class="flex flex-col">
                         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
-                                <div class="overflow-hidden shadow-md sm:rounded-lg">
+                            <div class="inline-block py-2 sm:px-6 lg:px-8">
+                                <div class="shadow-md sm:rounded-lg">
                                     <table class="w-full md:w-[665px] table-auto">
                                         <thead class="bg-gray-50">
                                         <tr>
@@ -46,7 +46,8 @@
 
                                                 <td class="py-4 px-6 text-md font-medium text-right whitespace-nowrap">
                                                     <form action="{{route('admin.room.destroy',$room)}}"
-                                                          method="post" onsubmit="return confirm('Silmek istediğinize eminmisiniz ?');">
+                                                          method="post"
+                                                          onsubmit="return confirm('Silmek istediğinize eminmisiniz ?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="text-red-600  hover:underline">
@@ -76,7 +77,7 @@
 
 <script>
     function validate(form) {
-        if(!valid)
+        if (!valid)
             return false;
         return confirm('Silmek istediğinize eminisiniz?');
     }

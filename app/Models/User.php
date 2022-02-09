@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     const ADMIN = 1;
-    const STAFF = 2;
+    const COMMUNITY = 2;
     const NORMAL = 3;
 
     /**

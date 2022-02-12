@@ -19,17 +19,7 @@ use App\Http\Controllers\Admin\EventController;
 |
 */
 
-Route::get('/data', function () {
-    $start = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2022-02-13 01:10:00');
-    $end = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', '2022-02-13 02:30:00');
-    $event = \App\Models\Event::where('room_id' , 22)
-        ->whereBetween('start_date', array($start, $end))
-        ->get();
-    dd($event);
-});
-
-
-Route::redirect('/intra/login', 'https://api.intra.42.fr/oauth/authorize?client_id=4d11ff1ff804cf025e19b7bf317b71676506457211ea95bf33eebbc9088a605b&redirect_uri=http%3A%2F%2Flocalhost%2Fintra%2Fcallback&response_type=code');
+Route::redirect('/intra/login', env('INTRA_API_URL'))->name('intra.login');
 
 Route::get('/intra/callback', [HomeController::class, 'callback'])->name('callback');
 

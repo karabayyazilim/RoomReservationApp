@@ -23,8 +23,3 @@ function isRoomTakenDelete($room_id, $start, $end): bool
         ->delete();
 }
 
-/*{
-    $a = (bool)Event::where('room_id', $room_id)->where('start_date', '<=', $start_date)->where('end_date', '>=', $end_date)->first();
-    dd($room_id, $start_date, $end_date, $a);
-}*/
-

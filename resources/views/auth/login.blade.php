@@ -46,7 +46,9 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-
+                    <a href="{{route('intra.login')}}" class="ml-3">
+                        {{ __('İntra ile giriş yap') }}
+                    </a>
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>

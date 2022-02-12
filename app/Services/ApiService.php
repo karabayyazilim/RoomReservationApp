@@ -20,7 +20,6 @@ class ApiService
             'code' => $code,
             'redirect_uri' => 'http://localhost/intra/callback'
         ]);
-
         self::getUser($res);
         self::getEvent($res);
     }
@@ -74,13 +73,13 @@ class ApiService
             if ($event == true)
                 isRoomTakenDelete($room->id, $item['start_date'], $item['end_date']);
             Event::create([
-                 'name' => $item['name'],
-                 'description' => $item['description'],
-                 'start_date' => $item['start_date'],
-                 'end_date' =>$item['end_date'],
-                 'room_id' => $room->id,
-                 'user_id' => $user->id,
-             ]);
+                'name' => $item['name'],
+                'description' => $item['description'],
+                'start_date' => $item['start_date'],
+                'end_date' =>$item['end_date'],
+                'room_id' => $room->id,
+                'user_id' => $user->id,
+            ]);
         }
     }
 

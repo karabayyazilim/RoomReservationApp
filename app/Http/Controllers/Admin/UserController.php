@@ -3,18 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Room;
-use App\Services\RoomService;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RoomController extends Controller
+class UserController extends Controller
 {
-
-    public function __construct(RoomService $roomService)
-    {
-        $this->roomService = $roomService;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +15,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return view('admin.room.index', [
-            'rooms' => Room::latest()->get()
+        return view('admin.user.index', [
+           'users' => User::where('role', '!=', User::ADMIN)->get()
         ]);
     }
 
@@ -34,7 +27,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('admin.room.create');
+        //
     }
 
     /**
@@ -45,17 +38,16 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $this->roomService->store($request);
-        return redirect()->route('admin.room.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Room $room)
+    public function show(User $user)
     {
         //
     }
@@ -63,13 +55,13 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Room $room)
+    public function edit(User $user)
     {
-        return view('admin.room.update', [
-            'room' => $room,
+        return view('admin.user.update', [
+           'user' => $user
         ]);
     }
 
@@ -77,24 +69,23 @@ class RoomController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, User $user)
     {
-        $this->roomService->update($request, $room->id);
-        return redirect()->route('admin.room.index');
+        $user->update($request->all());
+        return redirect()->route('admin.user.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Room $room)
+    public function destroy(User $user)
     {
-        $this->roomService->destroy($room->id);
-        return redirect()->route('admin.room.index');
+        $user->delete();
     }
 }

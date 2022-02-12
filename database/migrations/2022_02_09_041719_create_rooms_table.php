@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name',255);
-            $table->json('access_role');
+            $table->boolean('primary')->default(false);
             $table->timestamps();
         });
     }

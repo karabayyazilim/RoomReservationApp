@@ -47,15 +47,17 @@
                             <div class="w-full px-3 mb-6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                        for="grid-state">
-                                    Etkinlik Odası Seçiniz
+                                    Etkinlik Odası Seçiniz {{now()}}
                                 </label>
                                 <div class="relative">
                                     <select
                                         class="block appearance-none w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="grid-state" required name="room_id">
                                         @foreach($rooms as $room)
-                                            <option
-                                                value="{{$room->id}}" {{$event->room_id == $room->id ? 'selected' : null}}>{{$room->name}}</option>
+                                            @if(whereAccessRoom($room->id, auth()->user()->role) == true)
+                                                <option
+                                                    value="{{$room->id}}" {{$event->room_id == $room->id ? 'selected' : null}}>{{$room->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <div
@@ -75,8 +77,8 @@
                                     </label>
                                     <input
                                         class="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                        type="datetime-local" required name="start_date"
-                                        value="{{carbon\carbon::parse($event->end_date)->format('Y-m-d\TH:i')}}">
+                                        type="text" required name="start_date" id="start_date"
+                                        value="{{$event->start_date}}">
                                 </div>
                                 <div class="w-full  md:w-1/2 px-3 mb-6">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -84,8 +86,8 @@
                                     </label>
                                     <input
                                         class="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                        type="datetime-local" required name="end_date"
-                                        value="{{carbon\carbon::parse($event->end_date)->format('Y-m-d\TH:i')}}">
+                                        type="text" required name="end_date" id="end_date"
+                                        value="{{$event->end_date}}">
                                 </div>
                             </div>
                             <div class="w-full md:w-1/2 px-3">

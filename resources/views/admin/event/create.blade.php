@@ -27,7 +27,7 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="grid-first-name" type="text" required name="name">
+                                    id="grid-first-name" type="text" required name="name" value="{{old('name')}}">
                                 {{--<p class="text-red-500 text-xs italic">Please fill out this field.</p>--}}
                             </div>
                             <div class="w-full px-3 mb-6">
@@ -38,7 +38,7 @@
                                     class="form-control mb-6 block w-full px-3 py-1.5 bg-gray-50 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                     rows="4"
                                     placeholder="Etkinlik Açıklama" required name="description"
-                                ></textarea>
+                                >{{old('description')}}</textarea>
                             </div>
                             <div class="w-full px-3 mb-6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -51,7 +51,9 @@
                                         id="grid-state" required name="room_id">
                                         <option disabled selected>Seçiniz</option>
                                         @foreach($rooms as $room)
-                                            <option value="{{$room->id}}">{{$room->name}}</option>
+                                            @if(whereAccessRoom($room->id, auth()->user()->role) == true)
+                                                <option value="{{$room->id}}" {{$room->id == old('room_id') ? 'selected' : null}}>{{$room->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <div
@@ -71,7 +73,7 @@
                                     </label>
                                     <input
                                         class="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                        type="datetime-local" required name="start_date">
+                                        type="text" required id="start_date" name="start_date" value="{{carbon\carbon::parse(old('start_date'))->format('Y-m-d\TH:i')}}">
                                 </div>
                                 <div class="w-full  md:w-1/2 px-3 mb-6">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -79,7 +81,7 @@
                                     </label>
                                     <input
                                         class="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                        type="datetime-local" required name="end_date">
+                                        type="text" required id="end_date" name="end_date" value="{{carbon\carbon::parse(old('end_date'))->format('Y-m-d\TH:i')}}">
                                 </div>
                             </div>
                             <div class="w-full md:w-1/2 px-3">
@@ -99,4 +101,3 @@
     </div>
     </div>
 </x-app-layout>
-

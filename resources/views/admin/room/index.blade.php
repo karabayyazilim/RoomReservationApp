@@ -28,6 +28,10 @@
                                                 class="py-3 px-6 text-xl font-bold tracking-wider text-left text-gray-700 uppercase ">
                                                 Oda Adı
                                             </th>
+                                            <th scope="col"
+                                                class="py-3 px-6 text-xl font-bold tracking-wider text-left text-gray-700 uppercase ">
+                                                Birincil Oda
+                                            </th>
                                             <th scope="col" class="relative py-3 px-6">
                                                 <span class="sr-only">Sil</span>
                                             </th>
@@ -42,6 +46,10 @@
                                             <tr class="bg-white border-b ">
                                                 <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
                                                     {{$room->name}}
+                                                </td>
+
+                                                <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
+                                                    {{$room->primary == true ? 'Evet' : 'Hayır'}}
                                                 </td>
 
                                                 <td class="py-4 px-6 text-md font-medium text-right whitespace-nowrap">

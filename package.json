@@ -21,6 +21,7 @@
         "tailwindcss": "^3.0.0"
     },
     "dependencies": {
-        "@themesberg/tailwind-datepicker": "^1.1.0"
+        "@themesberg/tailwind-datepicker": "^1.1.0",
+        "flatpickr": "^4.6.9"
     }
 }

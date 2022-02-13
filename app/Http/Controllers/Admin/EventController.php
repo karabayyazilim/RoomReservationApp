@@ -47,7 +47,7 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\EventRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(EventRequest $request)
     {

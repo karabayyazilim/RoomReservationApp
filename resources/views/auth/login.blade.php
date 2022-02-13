@@ -2,17 +2,26 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-900" />
+                <x-application-logo class="w-48 h-48 fill-current text-gray-900"/>
             </a>
         </x-slot>
 
         <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <x-auth-session-status class="mb-4" :status="session('status')"/>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
-        <form method="POST" action="{{ route('login') }}">
+        <div class="text-center flex">
+            <a href="{{route('intra.login')}}"
+               class="w-full px-4 py-2 bg-gray-800 border
+           border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest
+           hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring
+           ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                <h5 class="text-center">{{ __('İntra ile giriş yap') }}</h5>
+            </a>
+        </div>
+        {{--<form method="POST" action="{{ route('login') }}">
             @csrf
 
             <!-- Email Address -->
@@ -46,13 +55,13 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-                    <a href="{{route('intra.login')}}" class="ml-3">
+                    <a href="{{route('intra.login')}}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                         {{ __('İntra ile giriş yap') }}
                     </a>
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
             </div>
-        </form>
+        </form>--}}
     </x-auth-card>
 </x-guest-layout>

@@ -17,15 +17,15 @@
                     </x-nav-link>
                     @if(auth()->user()->role == \App\Models\User::ADMIN)
                         <x-nav-link :href="route('admin.room.index')" :active="request()->routeIs('admin.room.index')">
-                            {{ __('Rooms') }}
+                            {{ __('Odalar') }}
                         </x-nav-link>
                     @endif
                     <x-nav-link :href="route('admin.event.index')" :active="request()->routeIs('admin.event.index')">
-                        {{ __('Events') }}
+                        {{ __('Etkinlikler') }}
                     </x-nav-link>
                     @if(auth()->user()->role == \App\Models\User::ADMIN)
                         <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')">
-                            {{ __('Users') }}
+                            {{ __('Kullanıcılar') }}
                         </x-nav-link>
                     @endif
                 </div>

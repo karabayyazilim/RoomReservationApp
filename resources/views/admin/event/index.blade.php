@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="py-12 ">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-x-auto shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 md:flex md:flex-col justify-center items-center">
                     <div class="flex flex-col">
@@ -65,10 +65,10 @@
                                                     {{$event->room->name}}
                                                 </td>
                                                 <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
-                                                    {{carbon\carbon::parse($event->start_date)->diffForHumans()}}
+                                                    {{carbon\carbon::parse($event->start_date)->format('Y-m-d H:i')}}
                                                 </td>
                                                 <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
-                                                    {{carbon\carbon::parse($event->end_date)->diffForHumans()}}
+                                                    {{carbon\carbon::parse($event->end_date)->format('Y-m-d H:i')}}
                                                 </td>
 
                                                 <td class="py-4 px-6 text-md font-medium text-right whitespace-nowrap">

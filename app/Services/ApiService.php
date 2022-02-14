@@ -87,7 +87,7 @@ class ApiService
     {
         $arr = [];
         foreach ($events as $event) {
-            if ($event->kind == 'meet_up' && $event->begin_at > now()) {
+            if (($event->kind == 'meet_up' || $event->kind == 'conference') && $event->begin_at > now()) {
                 array_push($arr, [
                     'name' => $event->name,
                     'description' => $event->description,

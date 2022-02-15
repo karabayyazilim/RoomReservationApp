@@ -58,7 +58,7 @@ class EventController extends Controller
         if ($start_date > $end_date || $start_date == $end_date || now() > $start_date) {
             return redirect()->back()->withErrors('Başlangıç tarihi bitiş tarihinden büyük, küçük veya eşit olamaz');
         }
-        if ($start_date->diffInHours($end_date) > 2) {
+        if ($start_date->diffInHours($end_date) > 2 && auth()->user()->role != User::ADMIN) {
             return redirect()->back()->withErrors("2 Saat'ten fazla olamaz");
         }
         if ($isEventDate === true) {

@@ -55,23 +55,31 @@
                                         <tbody>
                                         @foreach($events as $event)
                                             <tr class="bg-white border-b ">
-                                                <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
-                                                    {{$event->user->name}}
+                                                <td class="py-4 px-6 text-sm font-bold text-gray-900">
+
+                                                    <div class="flex items-center space-x-4">
+                                                        <div class="flex-shrink-0">
+                                                            <img class="w-8 h-8 rounded-full" src="{{$event->user->avatar}}" alt="Neil image">
+                                                        </div>
+                                                        <div class="flex-1 min-w-0">
+                                                            {{$event->user->name}}
+                                                        </div>
+                                                    </div>
                                                 </td>
-                                                <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-md font-medium text-gray-900  ">
                                                     {{$event->name}}
                                                 </td>
-                                                <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-md font-medium text-gray-900  ">
                                                     {{$event->room->name}}
                                                 </td>
-                                                <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-md font-medium text-gray-900  ">
                                                     {{carbon\carbon::parse($event->start_date)->format('Y-m-d H:i')}}
                                                 </td>
-                                                <td class="py-4 px-6 text-md font-medium text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-md font-medium text-gray-900  ">
                                                     {{carbon\carbon::parse($event->end_date)->format('Y-m-d H:i')}}
                                                 </td>
 
-                                                <td class="py-4 px-6 text-md font-medium text-right whitespace-nowrap">
+                                                <td class="py-4 px-6 text-md font-medium text-right ">
                                                     <form action="{{route('admin.event.destroy',$event)}}"
                                                           method="post"
                                                           onsubmit="return confirm('Silmek istediğinize eminmisiniz ?');">
@@ -83,7 +91,7 @@
 
                                                     </form>
                                                 </td>
-                                                <td class="py-4 px-6 text-md font-medium text-right whitespace-nowrap">
+                                                <td class="py-4 px-6 text-md font-medium text-right ">
                                                     <a href="{{route('admin.event.edit', $event)}}"
                                                        class="text-blue-600  hover:underline">Düzenle</a>
                                                 </td>

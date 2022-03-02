@@ -30,7 +30,7 @@
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-x-auto shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 md:flex md:flex-col justify-center items-center">
-                    <div class="flex flex-col">
+                    <div class="flex flex-wrap">
                         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block py-2 sm:px-6 lg:px-8">
                                 <div class="shadow-md sm:rounded-lg">
@@ -67,7 +67,7 @@
                                         <!-- Product 1 -->
                                         @foreach($events as $event)
                                             <tr class="bg-white border-b ">
-                                                <td class="py-4 px-6 text-sm font-bold text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-sm font-bold text-gray-900  ">
 
                                                     <div class="flex items-center space-x-4">
                                                         <div class="flex-shrink-0">
@@ -78,16 +78,16 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="py-4 px-6 text-sm font-bold text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-sm font-bold text-gray-900 ">
                                                     {{$event->name}}
                                                 </td>
-                                                <td class="py-4 px-6 text-sm font-bold text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-sm font-bold text-gray-900">
                                                     {{$event->room->name}}
                                                 </td>
-                                                <td class="py-4 px-6 text-sm font-bold text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-sm font-bold text-gray-900">
                                                     {{carbon\carbon::parse($event->start_date)->format('Y-m-d - H:i')}}
                                                 </td>
-                                                <td class="py-4 px-6 text-sm font-bold text-gray-900 whitespace-nowrap ">
+                                                <td class="py-4 px-6 text-sm font-bold text-gray-900">
                                                     {{carbon\carbon::parse($event->end_date)->format('Y-m-d - H:i')}}
                                                 </td>
                                                 <td class="py-4 px-6 text-sm font-bold text-gray-900">

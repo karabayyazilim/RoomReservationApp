@@ -1,65 +1,90 @@
-# For more information: https://laravel.com/docs/sail
-version: '3'
+version: "3.4"
+
 services:
-    laravel.test:
+    webserver:
         build:
-            context: ./docker/8.1
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: sail-8.1/app
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            context: _docker
+            dockerfile: nginx.dockerfile
         volumes:
-            - '.:/var/www/html'
-        networks:
-            - sail
+            - ./:/app
+        depends_on:
+            - fpm
+            - mysql
+        links:
+            - mysql
+        ports:
+            - '8080:80'
+            - '443:443'
+
+    fpm:
+        build:
+            context: _docker
+            dockerfile: fpm.dockerfile
+        volumes:
+            - ./:/app
+        environment:
+            XDEBUG_IDE_KEY: "PHPSTORM"
+            XDEBUG_REMOTE_HOST: "192.167.220.1"
+            PHP_IDE_CONFIG: "serverName=Docker"
+            DB_PORT: ${DB_PORT}
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_HOST: mysql
         depends_on:
             - mysql
-            - redis
-    mysql:
-        image: 'mysql/mysql-server:8.0'
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+    npm:
+        build:
+            context: _docker
+            dockerfile: npm.dockerfile
+        command: npm run production
+        volumes:
+            - ./:/app
+
+    cli:
+        build:
+            context: _docker
+            dockerfile: cli.dockerfile
+        volumes:
+            - ./:/app
+        depends_on:
+            - mysql
+        tty: true
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ROOT_HOST: "%"
-            MYSQL_DATABASE: '${DB_DATABASE}'
-            MYSQL_USER: '${DB_USERNAME}'
-            MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            DB_PORT: ${DB_PORT}
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_HOST: mysql
+
+    mysql:
+        image: mariadb:10.6.4
+        restart: always
         volumes:
-            - 'sail-mysql:/var/lib/mysql'
-        networks:
-            - sail
-        healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
-            retries: 3
-            timeout: 5s
-    redis:
-        image: 'redis:alpine'
+            - ./_docker/mysql/my.cnf:/etc/mysql/my.cnf
+            - ./_docker/sql-backup:/docker-entrypoint-initdb.d
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
+            - "${DB_PORT}:3306"
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        restart: always
+        ports:
+            - "82:80"
         volumes:
-            - 'sail-redis:/data'
-        networks:
-            - sail
-        healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
-            retries: 3
-            timeout: 5s
-networks:
-    sail:
-        driver: bridge
-volumes:
-    sail-mysql:
-        driver: local
-    sail-redis:
-        driver: local
+            - /sessions
+        environment:
+            - "PMA_ARBITRARY=1"
+            - "PMA_HOST=mysql"
+            - "PMA_PORT=3306"
+
+    mongodb:
+        image: mongo:4.2
+        ports:
+            - "27017:27017"
+        command: mongod

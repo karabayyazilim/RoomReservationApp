@@ -15,10 +15,12 @@ class RoomService
             if ($request->primary) {
                 Room::where('primary', true)->update(['primary' => false]);
             }
-            $room = Room::create([
-                'name' => $request->name,
-                'primary' => $request->primary,
-            ]);
+
+            $room = new Room();
+            $room->name = $request->name;
+            isset($request->primary) ? $room->primay = $request->primary : null;
+            $room->save();
+
             if ($request->normal_user) {
                 RoomAccessRole::create([
                     'room_id' => $room->id,

@@ -18,7 +18,7 @@ class RoomService
 
             $room = new Room();
             $room->name = $request->name;
-            isset($request->primary) ? $room->primay = $request->primary : null;
+            isset($request->primary) ? $room->primary = $request->primary : null;
             $room->save();
 
             if ($request->normal_user) {

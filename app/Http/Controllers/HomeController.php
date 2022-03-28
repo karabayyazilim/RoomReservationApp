@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function welcome()
     {
         return view('welcome', [
-            'events' => Event::where('start_date', '>', now())->latest()->get(),
+            'events' => Event::where('start_date', '>', now())->orderBy('start_date', 'asc')->get(),
         ]);
     }
 }

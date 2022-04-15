@@ -18,7 +18,7 @@ class RoomService
 
             $room = new Room();
             $room->name = $request->name;
-            isset($request->primary) ? $room->primary = $request->primary : null;
+            isset($request->primary) ? $room->primay = $request->primary : null;
             $room->save();
 
             if ($request->normal_user) {
@@ -49,7 +49,7 @@ class RoomService
 
             $room = Room::find($id);
             $room->name = $request->name;
-            isset($request->primary) ? $room->primay = $request->primary : null;
+            isset($request->primary) ? $room->primary = $request->primary : null;
             $room->save();
 
             $roomAccessRole = RoomAccessRole::where('room_id', $id)->first();

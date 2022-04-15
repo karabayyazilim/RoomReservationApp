@@ -87,12 +87,19 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.room.index')" :active="request()->routeIs('admin.room.index')">
-                {{ __('Rooms') }}
-            </x-responsive-nav-link>
+            @if(auth()->user()->role == \App\Models\User::ADMIN)
+                <x-responsive-nav-link :href="route('admin.room.index')" :active="request()->routeIs('admin.room.index')">
+                    {{ __('Odalar') }}
+                </x-responsive-nav-link>
+            @endif
             <x-responsive-nav-link :href="route('admin.event.index')" :active="request()->routeIs('admin.event.index')">
-                {{ __('Events') }}
+                {{ __('Etkinlikler') }}
             </x-responsive-nav-link>
+            @if(auth()->user()->role == \App\Models\User::ADMIN)
+                <x-responsive-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.event.index')">
+                    {{ __('Kullanıcılar') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

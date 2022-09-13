@@ -75,16 +75,10 @@ services:
         image: phpmyadmin/phpmyadmin:latest
         restart: always
         ports:
-            - "82:80"
+            - "8082:80"
         volumes:
             - /sessions
         environment:
             - "PMA_ARBITRARY=1"
             - "PMA_HOST=mysql"
             - "PMA_PORT=3306"
-
-    mongodb:
-        image: mongo:4.2
-        ports:
-            - "27017:27017"
-        command: mongod

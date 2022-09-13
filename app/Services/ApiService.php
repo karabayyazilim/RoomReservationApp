@@ -18,8 +18,8 @@ class ApiService
             'client_id' => env('INTRA_CLIENT_ID'),
             'client_secret' => env('INTRA_SECRET_ID'),
             'code' => $code,
-            'redirect_uri' => 'http://localhost/intra/callback'
-        ]);
+            'redirect_uri' => 'http://193.140.63.89:8080/intra/callback'
+	]);
         self::getUser($res);
         self::getEvent($res);
     }

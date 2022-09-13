@@ -53,8 +53,8 @@ class EventController extends Controller
     {
         $start_date = Carbon::parse($request->start_date);
         $end_date = Carbon::parse($request->end_date);
-        $isEventDate = isRoomTaken($request->room_id, $start_date, $end_date);
-        $request->flash();
+	$isEventDate = isRoomTaken($request->room_id, $start_date, $end_date);
+	$request->flash();
         if ($start_date > $end_date || $start_date == $end_date || now() > $start_date) {
             return redirect()->back()->withErrors('Başlangıç tarihi bitiş tarihinden büyük, küçük veya eşit olamaz');
         }

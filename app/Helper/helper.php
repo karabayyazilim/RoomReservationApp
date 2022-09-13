@@ -10,8 +10,8 @@ function whereAccessRoom($room_id, $role_id) {
 function isRoomTaken($room_id, $start, $end): bool
 {
     return (bool)Event::where('room_id', $room_id)
-        ->whereBetween('start_date', [$start, $end])
-        ->OrWhereBetween('end_date', [$start, $end])
+        ->where('start_date', '<=', $end)
+        ->where('end_date', '>=', $start)
         ->count();
 }
 
@@ -22,4 +22,3 @@ function isRoomTakenDelete($room_id, $start, $end): bool
         ->OrWhereBetween('end_date', [$start, $end])
         ->delete();
 }
-
